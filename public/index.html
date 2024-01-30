@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Web site created using create-react-app" />
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://x3dom.org/release/x3dom.js"></script>
+  <link rel="stylesheet" href="https://x3dom.org/release/x3dom.css" />
+  <script src="https://raw.githack.com/jamesleesaunders/d3-x3d/master/dist/d3-x3d.js"></script>
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+  <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
       Only files inside the `public` folder can be referenced from the HTML.
@@ -24,20 +26,75 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+  <title>React App</title>
+</head>
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+<body>
+  <div style="display: flex; justify-content: space-between;">
+    <div style="border: 2px solid black;">
+      <h2>Chart 1</h2>
+      <div id="chartholder"></div>
+    </div>
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+    <div style="border: 2px solid black;">
+      <h2>Chart 2</h2>
+      <div id="chartholder1"></div>
+    </div>
+
+    <div style="border: 2px solid black;">
+      <h2>Chart 3</h2>
+      <div id="chartholder2"></div>
+    </div>
+  </div>
+
+</body>
+<script>
+  // Select chartholder
+  var chartHolder = d3.select("#chartholder");
+  var chartHolder1 = d3.select("#chartholder1");
+  var chartHolder2 = d3.select("#chartholder2");
+
+
+  // Generate some data
+  var myData = [
+    {
+      key: "UK",
+      values: [
+        { key: "Apples", value: 9 },
+        { key: "Oranges", value: 3 },
+        { key: "Pears", value: 5 },
+        { key: "Bananas", value: 7 }
+      ]
+    },
+    {
+      key: "France",
+      values: [
+        { key: "Apples", value: 5 },
+        { key: "Oranges", value: 4 },
+        { key: "Pears", value: 6 },
+        { key: "Bananas", value: 2 }
+      ]
+    }
+  ];
+
+  // Declare the chart component
+  var myChart = d3.x3d.chart.barChartMultiSeries();
+  var myChart1 = d3.x3d.chart.areaChartMultiSeries();
+  var myChart2 = d3.x3d.chart.barChartVertical();
+
+
+  // Attach chart and data to the chartholder
+  chartHolder
+    .datum(myData)
+    .call(myChart);
+
+  chartHolder1
+    .datum(myData)
+    .call(myChart1);
+
+  chartHolder2
+    .datum(myData)
+    .call(myChart2);
+</script>
+
 </html>
